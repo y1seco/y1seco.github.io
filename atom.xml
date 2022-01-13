@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-01-13T15:44:18.023Z</updated>
+  <updated>2022-01-13T15:57:39.945Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://y1seco.github.io/2022/01/13/jarvisoj_level6_x64/"/>
     <id>https://y1seco.github.io/2022/01/13/jarvisoj_level6_x64/</id>
     <published>2022-01-13T15:44:54.832Z</published>
-    <updated>2022-01-13T15:44:18.023Z</updated>
+    <updated>2022-01-13T15:57:39.945Z</updated>
     
     
     <summary type="html">&lt;p&gt;double free，unlink覆写got表&lt;/p&gt;</summary>
