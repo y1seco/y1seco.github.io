@@ -4,25 +4,6 @@
   
     
     <entry>
-      <title>pwnable.tw cal</title>
-      <link href="/2022/01/05/pwnable.tw_cal/"/>
-      <url>/2022/01/05/pwnable.tw_cal/</url>
-      
-        <content type="html"><![CDATA[<p>pwnable.tw cal 复现</p><span id="more"></span><h2 id="pwnable-tw-cal"><a href="#pwnable-tw-cal" class="headerlink" title="pwnable.tw cal"></a>pwnable.tw cal</h2><h2 id="一、程序分析"><a href="#一、程序分析" class="headerlink" title="一、程序分析"></a>一、程序分析</h2><ol><li>checksec检查，32位，开了NX保护和canary</li></ol><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201062118355.png" alt="image-20220106211836007"></p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201062122936.png" alt="image-20220106212249811"></p><h2 id="二、漏洞点利用"><a href="#二、漏洞点利用" class="headerlink" title="二、漏洞点利用"></a>二、漏洞点利用</h2><h2 id="三、WP"><a href="#三、WP" class="headerlink" title="三、WP"></a>三、WP</h2><p>参考博客： <a href="https://www.tuicool.com/articles/VNzqea3">https://www.tuicool.com/articles/VNzqea3</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> pwnable </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>To kk</title>
       <link href="/2022/01/02/To%20kk/"/>
       <url>/2022/01/02/To%20kk/</url>

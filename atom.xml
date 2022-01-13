@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-01-07T12:41:04.859Z</updated>
+  <updated>2022-01-02T16:27:09.878Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,23 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>pwnable.tw cal</title>
-    <link href="https://y1seco.github.io/2022/01/05/pwnable.tw_cal/"/>
-    <id>https://y1seco.github.io/2022/01/05/pwnable.tw_cal/</id>
-    <published>2022-01-05T14:23:12.029Z</published>
-    <updated>2022-01-07T12:41:04.859Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;pwnable.tw cal 复现&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="pwnable" scheme="https://y1seco.github.io/categories/pwnable/"/>
-    
-    
-  </entry>
   
   <entry>
     <title>To kk</title>
@@ -74,7 +57,7 @@
     <link href="https://y1seco.github.io/2021/11/25/unlink/"/>
     <id>https://y1seco.github.io/2021/11/25/unlink/</id>
     <published>2021-11-25T01:58:15.556Z</published>
-    <updated>2021-12-26T13:15:33.425Z</updated>
+    <updated>2022-01-13T10:50:36.927Z</updated>
     
     
     <summary type="html">&lt;p&gt;堆溢出漏洞——unlink&lt;/p&gt;</summary>
