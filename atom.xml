@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-01-13T15:57:39.945Z</updated>
+  <updated>2022-01-14T15:54:14.937Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>0ctf2017-babyheap</title>
+    <link href="https://y1seco.github.io/2022/01/14/0ctf_2017_babyheap/"/>
+    <id>https://y1seco.github.io/2022/01/14/0ctf_2017_babyheap/</id>
+    <published>2022-01-14T15:54:41.736Z</published>
+    <updated>2022-01-14T15:54:14.937Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;fastbin attack&lt;/p&gt;
+&lt;p&gt;利用 fastbin attack 即 double free 的方式泄露 libc 基址，当只有一个 small/large chunk 被释放时，small/large chunk 的 fd 和 bk 指向 main_arena 中的地址，然后 fastbin attack 可以实现有限的地址写能力。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>jarvisoj_level6_x64</title>
