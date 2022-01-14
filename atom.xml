@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-01-14T15:54:14.937Z</updated>
+  <updated>2022-01-14T16:06:56.449Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -21,11 +21,10 @@
     <link href="https://y1seco.github.io/2022/01/14/0ctf_2017_babyheap/"/>
     <id>https://y1seco.github.io/2022/01/14/0ctf_2017_babyheap/</id>
     <published>2022-01-14T15:54:41.736Z</published>
-    <updated>2022-01-14T15:54:14.937Z</updated>
+    <updated>2022-01-14T16:06:56.449Z</updated>
     
     
-    <summary type="html">&lt;p&gt;fastbin attack&lt;/p&gt;
-&lt;p&gt;利用 fastbin attack 即 double free 的方式泄露 libc 基址，当只有一个 small/large chunk 被释放时，small/large chunk 的 fd 和 bk 指向 main_arena 中的地址，然后 fastbin attack 可以实现有限的地址写能力。&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;fastbin attack&lt;/p&gt;</summary>
     
     
     
