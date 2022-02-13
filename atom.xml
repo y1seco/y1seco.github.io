@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-02-09T16:00:18.640Z</updated>
+  <updated>2022-02-13T08:39:46.501Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>flask配置celery异步任务</title>
+    <link href="https://y1seco.github.io/2022/02/13/flask%E9%85%8D%E7%BD%AE%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/"/>
+    <id>https://y1seco.github.io/2022/02/13/flask%E9%85%8D%E7%BD%AE%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/</id>
+    <published>2022-02-13T08:40:17.770Z</published>
+    <updated>2022-02-13T08:39:46.501Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;flask配置celery异步任务&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="flask" scheme="https://y1seco.github.io/categories/flask/"/>
+    
+    
+    <category term="flask" scheme="https://y1seco.github.io/tags/flask/"/>
+    
+  </entry>
   
   <entry>
     <title>Kernel Pwn 学习（一）</title>
