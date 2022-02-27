@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-02-17T16:08:42.414Z</updated>
+  <updated>2022-02-27T13:58:13.688Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>gyctf_2020_force(house of force)</title>
+    <link href="https://y1seco.github.io/2022/02/27/gyctf_2020_force/"/>
+    <id>https://y1seco.github.io/2022/02/27/gyctf_2020_force/</id>
+    <published>2022-02-27T13:56:08.013Z</published>
+    <updated>2022-02-27T13:58:13.688Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;house of force,使用realloc函数调整栈帧&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/tags/pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>BUUCTF Pwn Exercise(一)</title>
@@ -349,23 +368,6 @@
     
     
     <summary type="html">&lt;p&gt;堆溢出&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CTF-WIKI-pwn-基本ROP 漏洞复现</title>
-    <link href="https://y1seco.github.io/2021/11/11/ROP/"/>
-    <id>https://y1seco.github.io/2021/11/11/ROP/</id>
-    <published>2021-11-11T07:10:23.767Z</published>
-    <updated>2021-12-25T07:51:47.877Z</updated>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;基本ROP&quot;&gt;&lt;a href=&quot;#基本ROP&quot; class=&quot;headerlink&quot; title=&quot;基本ROP&quot;&gt;&lt;/a&gt;基本ROP&lt;/h1&gt;</summary>
     
     
     
