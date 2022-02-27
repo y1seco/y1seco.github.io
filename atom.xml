@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-02-27T14:01:28.076Z</updated>
+  <updated>2022-02-27T14:53:26.037Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CTFSHOW卷王杯-pwn</title>
+    <link href="https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/"/>
+    <id>https://y1seco.github.io/2022/02/27/CTFSHOW%E5%8D%B7%E7%8E%8B%E6%9D%AF-%20Incomplete%20Menu/</id>
+    <published>2022-02-27T14:53:54.034Z</published>
+    <updated>2022-02-27T14:53:26.037Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;根据官方wp学习了两道好题&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/tags/pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>gyctf_2020_force</title>
@@ -356,23 +375,6 @@
     
     
     <category term="pwn" scheme="https://y1seco.github.io/tags/pwn/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>babyheap_0ctf_2017</title>
-    <link href="https://y1seco.github.io/2021/11/15/%E5%A0%86%E6%BA%A2%E5%87%BA/"/>
-    <id>https://y1seco.github.io/2021/11/15/%E5%A0%86%E6%BA%A2%E5%87%BA/</id>
-    <published>2021-11-15T03:25:42.853Z</published>
-    <updated>2021-12-25T07:41:10.715Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;堆溢出&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
-    
     
   </entry>
   
