@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-02-27T13:58:13.688Z</updated>
+  <updated>2022-02-27T14:01:28.076Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -17,14 +17,14 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>gyctf_2020_force(house of force)</title>
+    <title>gyctf_2020_force</title>
     <link href="https://y1seco.github.io/2022/02/27/gyctf_2020_force/"/>
     <id>https://y1seco.github.io/2022/02/27/gyctf_2020_force/</id>
     <published>2022-02-27T13:56:08.013Z</published>
-    <updated>2022-02-27T13:58:13.688Z</updated>
+    <updated>2022-02-27T14:01:28.076Z</updated>
     
     
-    <summary type="html">&lt;p&gt;house of force,使用realloc函数调整栈帧&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;house of force,realloc调整栈帧&lt;/p&gt;</summary>
     
     
     
