@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-02-27T15:36:59.645Z</updated>
+  <updated>2022-03-03T10:10:45.527Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>BUUOJ PWN EXERCISE(Day 3)</title>
+    <link href="https://y1seco.github.io/2022/03/03/BUUOJ%20PWN%20EXERCISE(%E4%B8%89%EF%BC%89/"/>
+    <id>https://y1seco.github.io/2022/03/03/BUUOJ%20PWN%20EXERCISE(%E4%B8%89%EF%BC%89/</id>
+    <published>2022-03-03T10:11:18.801Z</published>
+    <updated>2022-03-03T10:10:45.527Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Day 3 Exercise&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
+    
+    
+    <category term="pwn" scheme="https://y1seco.github.io/tags/pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>CTFSHOW卷王杯-pwn</title>
@@ -356,25 +375,6 @@
     
     <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>栈溢出</title>
-    <link href="https://y1seco.github.io/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/"/>
-    <id>https://y1seco.github.io/2021/11/16/%E6%A0%88%E6%BA%A2%E5%87%BA/</id>
-    <published>2021-11-16T03:46:35.570Z</published>
-    <updated>2021-12-25T09:55:53.898Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;ret2libc，fmtstr&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
-    
-    
-    <category term="pwn" scheme="https://y1seco.github.io/tags/pwn/"/>
     
   </entry>
   
