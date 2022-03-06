@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-03-03T11:04:50.581Z</updated>
+  <updated>2022-03-06T16:31:31.619Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue开发问题总结</title>
+    <link href="https://y1seco.github.io/2022/03/07/vue%E5%BC%80%E5%8F%91/"/>
+    <id>https://y1seco.github.io/2022/03/07/vue%E5%BC%80%E5%8F%91/</id>
+    <published>2022-03-06T16:11:18.988Z</published>
+    <updated>2022-03-06T16:31:31.619Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;前端开发中遇到的一些问题及解决方法&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="vue" scheme="https://y1seco.github.io/categories/vue/"/>
+    
+    
+    <category term="vue" scheme="https://y1seco.github.io/tags/vue/"/>
+    
+  </entry>
   
   <entry>
     <title>BUUOJ PWN EXERCISE(二)</title>
@@ -357,23 +376,6 @@
     
     
     <category term="pwnable.tw" scheme="https://y1seco.github.io/categories/pwnable-tw/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>堆漏洞uaf</title>
-    <link href="https://y1seco.github.io/2021/11/17/hitcontraining_uaf/"/>
-    <id>https://y1seco.github.io/2021/11/17/hitcontraining_uaf/</id>
-    <published>2021-11-17T07:42:49.020Z</published>
-    <updated>2022-01-27T12:59:54.276Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;uaf&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
     
     
   </entry>
