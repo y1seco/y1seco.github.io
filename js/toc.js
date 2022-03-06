@@ -1,80 +1,104 @@
-(function (window, document) {
-  function register($toc) {
-    const currentInView = new Set();
-    const headingToMenu = new Map();
-    const $menus = Array.from($toc.querySelectorAll('.menu-list > li > a'));
+define(function (){
 
-    for (const $menu of $menus) {
-      const elementId = $menu.getAttribute('href').trim().slice(1);
-      const $heading = document.getElementById(elementId);
-      if ($heading) {
-        headingToMenu.set($heading, $menu);
-      }
-    }
-
-    const $headings = Array.from(headingToMenu.keys());
-
-    const callback = (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          currentInView.add(entry.target);
-        } else {
-          currentInView.delete(entry.target);
+    var toggleTocArea = function(){
+        var valueHide = yiliaConfig.toc[0];
+        var valueShow = yiliaConfig.toc[1];
+        if ($(".left-col").is(":hidden")) {
+            $("#tocButton").attr("value", valueShow);
         }
-      }
-      let $heading;
-      if (currentInView.size) {
-        // heading is the first in-view heading
-        $heading = [...currentInView].sort(($el1, $el2) => $el1.offsetTop - $el2.offsetTop)[0];
-      } else if ($headings.length) {
-        // heading is the closest heading above the viewport top
-        $heading = $headings
-          .filter(($heading) => $heading.offsetTop < window.scrollY)
-          .sort(($el1, $el2) => $el2.offsetTop - $el1.offsetTop)[0];
-      }
-      if ($heading && headingToMenu.has($heading)) {
-        $menus.forEach(($menu) => $menu.classList.remove('is-active'));
+        $("#tocButton").click(function() {
+            if ($("#toc").is(":hidden")) {
+                $("#tocButton").attr("value", valueHide);
+                $("#toc").slideDown(320);
+                $(".switch-btn, .switch-area").fadeOut(300);
+            }
+            else {
+                $("#tocButton").attr("value", valueShow);
+                $("#toc").slideUp(350);
+                $(".switch-btn, .switch-area").fadeIn(500);
+            }
+        })
+    }()
 
-        const $menu = headingToMenu.get($heading);
-        $menu.classList.add('is-active');
-        let $menuList = $menu.parentElement.parentElement;
-        while (
-          $menuList.classList.contains('menu-list') &&
-          $menuList.parentElement.tagName.toLowerCase() === 'li'
-        ) {
-          $menuList.parentElement.children[0].classList.add('is-active');
-          $menuList = $menuList.parentElement.parentElement;
+    var HideTOCifNoHeader = function(){
+        if (!$(".toc").length) {
+            $("#toc, #tocButton").hide();
+            $(".switch-btn, .switch-area").show();
         }
-      }
-    };
-    const observer = new IntersectionObserver(callback, { threshold: 0 });
+    }()
 
-    for (const $heading of $headings) {
-      observer.observe($heading);
-      // smooth scroll to the heading
-      if (headingToMenu.has($heading)) {
-        const $menu = headingToMenu.get($heading);
-        $menu.setAttribute('data-href', $menu.getAttribute('href'));
-        $menu.setAttribute('href', 'javascript:;');
-        $menu.addEventListener('click', () => {
-          if (typeof $heading.scrollIntoView === 'function') {
-            $heading.scrollIntoView({ behavior: 'smooth' });
-          }
-          const anchor = $menu.getAttribute('data-href');
-          if (history.pushState) {
-            history.pushState(null, null, anchor);
-          } else {
-            location.hash = anchor;
-          }
-        });
-        $heading.style.scrollMargin = '1em';
-      }
+    var $itemHasChild = $("#toc .toc-item:has(> .toc-child)");
+    var $titleHasChild = $itemHasChild.children(".toc-link");
+    $itemHasChild.prepend("<i class='fa fa-caret-down'></i><i class='fa fa-caret-right'></i>");
+
+    var clickIcon = function(){
+        $("#toc .toc-item > i").click(function(){
+            $(this).siblings(".toc-child").slideToggle(100);
+            $(this).toggleClass("hide");
+            $(this).siblings("i").toggleClass("hide");
+        })
+    }()
+
+    var clickTitle = function(){
+        $titleHasChild.dblclick(function(){
+            $(this).siblings(".toc-child").hide(100);
+            $(this).siblings("i").toggleClass("hide");
+        })
+        // After dblclick enent
+        $titleHasChild.click(function(){
+            var $curentTocChild = $(this).siblings(".toc-child");
+            if ($curentTocChild.is(":hidden")) {
+                $curentTocChild.show(100);
+                $(this).siblings("i").toggleClass("hide");
+            }
+        })
+    }()
+
+    var clickTocTitle = function(){
+        var $iconToExpand = $(".toc-item > .fa-caret-right");
+        var $iconToFold = $(".toc-item > .fa-caret-down");
+        var $subToc = $titleHasChild.next(".toc-child");
+        $iconToExpand.addClass("hide");
+
+        var $tocTitle = $("#toc .toc-title");
+        if ($titleHasChild.length) {
+            $tocTitle.addClass("clickable");
+            $tocTitle.click(function(){
+                if ($subToc.is(":hidden")) {
+                    $subToc.show(150);
+                    $iconToExpand.removeClass("hide");
+                    $iconToFold.addClass("hide");
+                } else {
+                    $subToc.hide(100);
+                    $iconToExpand.addClass("hide");
+                    $iconToFold.removeClass("hide");
+                }
+            })
+            // TOC on mobile
+            if ($(".left-col").is(":hidden")) {
+                $("#container .toc-article .toc").css("padding-left", "1.4em");
+                $("#container .toc-article .toc-title").css("display", "initial");
+            }
+        }
+    }()
+
+    var TocNoWarp = function(cond){
+        if (cond) {
+            var $tocLink = $(".toc li a");
+            $tocLink.each(function(){
+                var title = $(this).find('.toc-text').text();
+                // Find elements with ellipsis
+                if (this.offsetWidth < this.scrollWidth) {
+                    $(this).attr("title", title);
+                    if (!!$().tooltip) { $(this).tooltip() }
+                }
+            })
+            var isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+            if (isSafari) {
+                $("#toc .toc-item i").css("bottom", ".1em");
+            }
+        }
     }
-  }
+    TocNoWarp(yiliaConfig.toc[2]);
 
-  if (typeof window.IntersectionObserver === 'undefined') {
-    return;
-  }
-
-  document.querySelectorAll('#toc').forEach(register);
-})(window, document);
+})
