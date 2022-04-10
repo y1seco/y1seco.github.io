@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-03-07T01:35:27.688Z</updated>
+  <updated>2022-04-10T13:51:35.292Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>基于QEMU的OPTEE/ATF学习</title>
+    <link href="https://y1seco.github.io/2022/04/10/OPTEE_ATF/"/>
+    <id>https://y1seco.github.io/2022/04/10/OPTEE_ATF/</id>
+    <published>2022-04-10T13:52:08.727Z</published>
+    <updated>2022-04-10T13:51:35.292Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;qemu&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="qemu" scheme="https://y1seco.github.io/categories/qemu/"/>
+    
+    
+    <category term="qemu" scheme="https://y1seco.github.io/tags/qemu/"/>
+    
+  </entry>
   
   <entry>
     <title>vue开发问题总结</title>
@@ -357,23 +376,6 @@
     
     
     <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>pwnable.tw orw</title>
-    <link href="https://y1seco.github.io/2021/11/17/pwnable.tw_orw/"/>
-    <id>https://y1seco.github.io/2021/11/17/pwnable.tw_orw/</id>
-    <published>2021-11-17T12:20:49.949Z</published>
-    <updated>2022-01-27T13:02:52.803Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;prctl 内核沙箱机制&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="pwnable.tw" scheme="https://y1seco.github.io/categories/pwnable-tw/"/>
     
     
   </entry>
