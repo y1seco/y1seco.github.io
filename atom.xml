@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-04-20T02:39:46.127Z</updated>
+  <updated>2022-05-14T09:26:14.136Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android-Low memory killer源码分析</title>
+    <link href="https://y1seco.github.io/2022/05/14/LMK/"/>
+    <id>https://y1seco.github.io/2022/05/14/LMK/</id>
+    <published>2022-05-14T09:26:54.274Z</published>
+    <updated>2022-05-14T09:26:14.136Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;LMK 调研&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="android" scheme="https://y1seco.github.io/categories/android/"/>
+    
+    
+    <category term="android" scheme="https://y1seco.github.io/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title>arm-trusted-firmware可信启动机制</title>
@@ -359,23 +378,6 @@
     
     
     <category term="随笔" scheme="https://y1seco.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://y1seco.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Diaries</title>
-    <link href="https://y1seco.github.io/2021/12/26/diary/"/>
-    <id>https://y1seco.github.io/2021/12/26/diary/</id>
-    <published>2021-12-26T07:41:50.130Z</published>
-    <updated>2022-03-11T08:14:48.724Z</updated>
-    
-    
-    <summary type="html">加密文章，请输入密码查看</summary>
-    
-    
     
     
     <category term="随笔" scheme="https://y1seco.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
