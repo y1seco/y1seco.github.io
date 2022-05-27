@@ -6,7 +6,7 @@
   <link href="https://y1seco.github.io/atom.xml" rel="self"/>
   
   <link href="https://y1seco.github.io/"/>
-  <updated>2022-05-15T07:49:15.458Z</updated>
+  <updated>2022-05-27T08:52:31.277Z</updated>
   <id>https://y1seco.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go开发及代码审计学习（一）</title>
+    <link href="https://y1seco.github.io/2022/05/27/Go%E5%BC%80%E5%8F%91%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/"/>
+    <id>https://y1seco.github.io/2022/05/27/Go%E5%BC%80%E5%8F%91%E5%8F%8A%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E5%AD%A6%E4%B9%A0/</id>
+    <published>2022-05-27T08:53:11.129Z</published>
+    <updated>2022-05-27T08:52:31.277Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;进度一&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="go" scheme="https://y1seco.github.io/categories/go/"/>
+    
+    
+    <category term="go" scheme="https://y1seco.github.io/tags/go/"/>
+    
+  </entry>
   
   <entry>
     <title>Android--LMK机制分析</title>
@@ -362,25 +381,6 @@
     
     <category term="pwn" scheme="https://y1seco.github.io/categories/pwn/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>To kk</title>
-    <link href="https://y1seco.github.io/2022/01/02/To%20kk/"/>
-    <id>https://y1seco.github.io/2022/01/02/To%20kk/</id>
-    <published>2022-01-02T12:35:11.676Z</published>
-    <updated>2022-01-13T17:02:15.884Z</updated>
-    
-    
-    <summary type="html">加密文章，请输入密码查看</summary>
-    
-    
-    
-    <category term="随笔" scheme="https://y1seco.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-    <category term="随笔" scheme="https://y1seco.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
